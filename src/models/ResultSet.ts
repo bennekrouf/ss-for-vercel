@@ -1,4 +1,4 @@
-import FilmLocation from './film.location';
+import FilmLocation from './FilmLocation';
 type ResultSet = {
     filmLocations: FilmLocation[],
     totalCount: number,

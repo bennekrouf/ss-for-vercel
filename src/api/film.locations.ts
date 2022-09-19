@@ -1,6 +1,6 @@
-import FilmLocation from "../models/film.location";
-import ResultSet    from "../models/result.set";
-import Option       from "../models/option";
+import FilmLocation from "../models/FilmLocation";
+import ResultSet    from "../models/ResultSet";
+import Option       from "../models/Option";
 
 import anneeTournageURI from "../helpers/years.builder";
 import otherTextURI     from "../helpers/texts.builder";

@@ -9,11 +9,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { load as apiLoad } from '../api/film.locations';
 import criterias from "../data/criterias";
-import ResultSet from '../models/result.set';
-import Option from '../models/option';
+import ResultSet from '../models/ResultSet';
+import Option from '../models/Option';
 
-import QueryInput from './query.input';
-import FilmLocationRow from './film.location';
+import QueryInput from './QueryInput';
+import FilmLocationRow from './FilmLocation';
 import styles from '../app.module.css';
 
 const initialResultSet: ResultSet = {
@@ -80,9 +80,6 @@ const Result = () => {
     const bindingHandler = (updatedOption: Option) => {
         option[Object.keys(updatedOption)[0]] = updatedOption[Object.keys(updatedOption)[0]];
         setOption(option);
-        if(isEmptyOption()) {
-            // loadData(undefined);
-        }
     }
     
     return (

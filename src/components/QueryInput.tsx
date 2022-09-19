@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
 import CheckIcon from '@mui/icons-material/Check';
 
-import Option from '../models/option';
+import Option from '../models/Option';
 
 const QueryInput = ({...criteria}:any) => {
     const theOption: Option = {

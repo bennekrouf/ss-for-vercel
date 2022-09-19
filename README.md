@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+# Contexte
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Application React qui permet de visualiser et faire des recherches sur le dataset opendata.paris.fr des rubriques de lieux de tournages.
 
-## Available Scripts
 
-In the project directory, you can run:
+# Composants et modèles
 
-### `npm start`
+Il y a 4 composants:
+- **Content**: Il est composé des deux grilles : la grille pour les champs de recherches et la grille des cards.
+- **FilmLocation**: C'est la card d'un film.
+- **Header**: Barre d'entête qui n'affiche que le titre de l'application.
+- **QueryInput**: C'est un champ de recherche. Ce composant est réutilisé pour les 3 champs de recherches.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Il y a 3 modèles:
+- **FilmLocation**: Contient toute les propriétés d'un film ou lieu de tournage.
+- **Option**: Contient les valeurs de filtres sélectionnées pour les 3 champs type, ardt et année.
+- **ResultSet**: Contient la liste des films, l'offset et le total.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+# Principe de fonctionnement
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Premier chargement
 
-### `npm run build`
+Le premier chargement de la page fait un appel de l'API et créer le premier ResultSet.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Scroll
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Lorsque l'utilisateur scrolle jusqu'à arriver au bas de la liste, on compare l'offset et le total stocké dans le ResultSet. S'il est inférieur alors on demande un fetch en précisant l'offset courant. Au passage, les options étant stockés dans le contexte, elles sont aussi envoyés à l'API pour filtre. Cela permet de supporter le scrolle infini aussi avec des filtres sans effort.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Sélection d'options
 
-### `npm run eject`
+Lorsque l'utilisateur sélectionne une option, celle-ci est transmise au composant parent par double binding (voir la fonction _bindingHandler_).
+Lorsque l'utilisateur clique sur **Search** un appel à l'API est fait avec offset à 0. Les options sont systématiquement passé à l'API. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Au retour de l'API le contexte est mis à jours : création d'un nouveau ResultSet composé des anciennes données et des nouvelles données.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Etapes de développement
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Génération d'une application React avec le scalfold officiel et typescript en paramètre d'option
+2. Création d'un layout avec un header (composant 'Header') et une zone de contenu (composant 'Content')
+3. Création de deux zones dans le composant Content avec un espace pour la recherche et un espace pour l'affichage des résultats
+4. Création d'une grille en utilisant Grid de React material. Et création de Card à l'intérieur de cette la grille. Puis configuration de la Grid pour supporter 4 résolutions. L'objectif était de permettre d'empiler les card en fonction des résolutions. J'ai testé le fonctionnement en réduisant manuellement la taille du navigateur.
+5. Appel de l'API uniquement à l'intérieur du code avec des paramètres en dure. Modification du rendu des cards pour afficher les données réelles de l'API.
+6. Création d'un component spécifique pour les cards. Et implémentation de l'appel à l'API. Gestion des state et fonctions useEffect pour avoir un chargement initial 'propre'.
+7. Création d'une grille pour les filtres de la zone de recherche (composant query.input). Gestion des résolutions pour afficher les 3 champs et le champ recherche en fonction de la résolution.
+8. Création des champs input et gestion de la sélection des filtres.
+9. Gestion du binding entre les filtres et le composant parent qui possède le boutton Search
+10. Modification du composant API pour supporter le filtrage
+11. Gestion du scroll infini sur le front et adaptation de l'API pour le passage de l'offset.
+12. Tests et bug fixes.

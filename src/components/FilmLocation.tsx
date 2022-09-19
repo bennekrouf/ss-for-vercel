@@ -8,7 +8,7 @@ import Typography       from '@mui/material/Typography';
 import Box              from '@mui/material/Box';
 import { BsFillGeoAltFill, BsCameraReels }         from "react-icons/bs";
 
-import FilmLocation     from '../models/film.location';
+import FilmLocation     from '../models/FilmLocation';
 
 const FilmLocationRow  = (filmLocation:FilmLocation) => {
     const openMaps = useCallback((filmLocation:FilmLocation) => () => {
