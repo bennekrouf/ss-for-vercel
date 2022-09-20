@@ -14,7 +14,7 @@ Il y avait au moins deux options : sélection puis clique d'un boutton recherche
 
 ## Présentation
 
-Les options étaient : tableau ou liste de cartes, pagination ou scrolle infini (ou 'show more'). Un hook avec ```useEffect```  est utilisé. Pour éviter une boucle lors du chargement, j'ai utilisé ```useCallBack```sans passer de paramètre d'état qui serait modifié comme le ```ResultSet```. J'ai aussi supprimé le ```StrictMode```de React pour éviter deux chargements créant des complications dans la gestion de l'offset.   
+Les options étaient : tableau ou liste de cartes, pagination ou scrolle infini (ou 'show more'). 
 
 J'ai choisis les cartes car elles permettent de faire un affichage responsif. Et j'ai choisis le scroll infini car la pagination se présente aussi comment un espace de configuration que l'on peut confondre avec "l'espace de configuration" des filtres.
 
@@ -37,11 +37,11 @@ Il y a 3 modèles:
 
 ## Premier chargement
 
-Le premier chargement de la page fait un appel de l'API et créer le premier ResultSet.
+Le premier chargement de la page fait un appel de l'API et créer le premier ResultSet. Un hook avec ```useEffect```  est utilisé. Pour éviter une boucle lors du chargement, j'ai utilisé ```useCallBack```sans passer de paramètres d'état qui serait modifié comme le ```ResultSet```. J'ai aussi supprimé le ```StrictMode```de React pour éviter deux chargements créant des complications dans la gestion de l'offset.  
 
 ## Scroll
 
-Lorsque l'utilisateur scrolle jusqu'à arriver au bas de la liste, on compare l'offset et le total stocké dans le ResultSet. S'il est inférieur alors on demande un fetch en précisant l'offset courant. Au passage, les options étant stockés dans le contexte, elles sont aussi envoyés à l'API pour filtre. Cela permet de supporter le scrolle infini aussi avec des filtres sans effort.
+Lorsque l'utilisateur scrolle jusqu'à arriver au bas de la liste, on compare l'offset et le total stocké dans le ResultSet. S'il est inférieur alors on demande un ```fetch``` en précisant l'offset courant. Au passage, les options étant stockés dans le contexte, elles sont aussi envoyés à l'API pour filtre. Cela permet de supporter le scrolle infini aussi avec des filtres et sans effort supplémentaire.
 
 ## Sélection d'options
 
