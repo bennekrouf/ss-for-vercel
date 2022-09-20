@@ -4,19 +4,19 @@ Application React qui permet de visualiser et faire des recherches sur le datase
 
 ## Méthode de recherche
 
-Entre une approche d'un champ globale avec saisie des mots de recherches au clavier, et une approche avec plusieurs champs/filtres dédiés, j'ai choisis la seconde méthode. Le nombre de champs de recherche étant limité à 3, cela permet d'avoir une interface intuitive (l'utilisateur voit clairement la nature des infomrations à saisir) et permet aussi de proposer des listes de valeurs sélectionnables (l'utilisateur se voit suggérer ce qui est possible).
+Entre une approche d'un champ globale avec saisie des mots de recherches au clavier, et une approche avec plusieurs champs/filtres dédiés, j'ai choisis la seconde méthode. Le nombre de champs de recherche étant limité à 3, cela permet d'avoir une interface intuitive (l'utilisateur voit clairement la nature des informations à saisir) et permet aussi de proposer des listes de valeurs sélectionnables (l'utilisateur se voit suggérer ce qui est possible).
 
-(L'autre solution avec un seul champ de saisie sera privilégié si le nombre de champs est important (~infini). Une solution que j'aurais implémenté dans ce cas aurait été de récupérer tous les enregistrements, sérialisés chacun d'eux puis faire un ```.include``` sur chacun des mots. En attribuant un poid aux résultats, on peut présenter les résultats triés par pertinence.)
+(L'autre solution avec un seul champ de saisie sera privilégié si le nombre de champs est important (~infini). Une solution que j'aurais implémenté dans ce cas aurait été de récupérer tous les enregistrements, les sérialiser puis faire un ```.include``` pour chacun des mots. En attribuant un poid aux résultats, on peut présenter les résultats triés par pertinence.)
 
-## Exécution de la recherche
+## Exécution de la recherche
 
 Il y avait au moins deux options : sélection puis clique d'un boutton recherche ou bien recherche instantanée à chaque saisie de caractères. J'ai choisis la première approche pour plusieurs raisons parmi lesquelles en cliquant sur un bouton une certaine latence (liée à une combinaison complexe ou un lenteur réseau exceptionel) peut être plus facilement acceptée. Aussi, cela permet d'avoir deux états distinctes et simplifier l'implémentation et sa maintenabilité.
 
 ## Présentation
 
-Les options étaient : tableau ou liste de cartes, pagination ou scroll infini (ou 'show more').
+Les options étaient : tableau ou liste de cartes, pagination ou scrolle infini (ou 'show more'). Un hook avec ```useEffect```  est utilisé. Pour éviter une boucle lors du chargement, j'ai utilisé ```useCallBack```sans passer de paramètre d'état qui serait modifié comme le ```ResultSet```. J'ai aussi supprimé le ```StrictMode```de React pour éviter deux chargements créant des complications dans la gestion de l'offset.   
 
-J'ai choisis les cartes car elles permettent de faire un affichage responsive. Et j'ai choisis le scroll infini car la pagination se présente aussi comment un espace de configuration que l'on confond avec "l'espace de configuration" des filtres.
+J'ai choisis les cartes car elles permettent de faire un affichage responsif. Et j'ai choisis le scroll infini car la pagination se présente aussi comment un espace de configuration que l'on peut confondre avec "l'espace de configuration" des filtres.
 
 
 # Composants et modèles
