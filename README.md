@@ -1,6 +1,6 @@
-# Approche
-
 Application React qui permet de visualiser et faire des recherches sur le dataset opendata.paris.fr des rubriques de lieux de tournages.
+
+# Approche
 
 ## Méthode de recherche
 
