@@ -1,6 +1,22 @@
-# Contexte
+# Approche
 
 Application React qui permet de visualiser et faire des recherches sur le dataset opendata.paris.fr des rubriques de lieux de tournages.
+
+## Méthode de recherche
+
+Entre une approche d'un champ globale avec saisie des mots de recherches au clavier, et une approche avec plusieurs champs/filtres dédiés, j'ai choisis la seconde méthode. Le nombre de champs de recherche étant limité à 3, cela permet d'avoir une interface intuitive (l'utilisateur voit clairement la nature des infomrations à saisir) et permet aussi de proposer des listes de valeurs sélectionnables (l'utilisateur se voit suggérer ce qui est possible).
+
+(L'autre solution avec un seul champ de saisie sera privilégié si le nombre de champs est important (~infini). Une solution que j'aurais implémenté dans ce cas aurait été de récupérer tous les enregistrements, sérialisés chacun d'eux puis faire un ```.include``` sur chacun des mots. En attribuant un poid aux résultats, on peut présenter les résultats triés par pertinence.)
+
+## Exécution de la recherche
+
+Il y avait au moins deux options : sélection puis clique d'un boutton recherche ou bien recherche instantanée à chaque saisie de caractères. J'ai choisis la première approche pour plusieurs raisons parmi lesquelles en cliquant sur un bouton une certaine latence (liée à une combinaison complexe ou un lenteur réseau exceptionel) peut être plus facilement acceptée. Aussi, cela permet d'avoir deux états distinctes et simplifier l'implémentation et sa maintenabilité.
+
+## Présentation
+
+Les options étaient : tableau ou liste de cartes, pagination ou scroll infini (ou 'show more').
+
+J'ai choisis les cartes car elles permettent de faire un affichage responsive. Et j'ai choisis le scroll infini car la pagination se présente aussi comment un espace de configuration que l'on confond avec "l'espace de configuration" des filtres.
 
 
 # Composants et modèles
@@ -29,7 +45,7 @@ Lorsque l'utilisateur scrolle jusqu'à arriver au bas de la liste, on compare l'
 
 ## Sélection d'options
 
-Lorsque l'utilisateur sélectionne une option, celle-ci est transmise au composant parent par double binding (voir la fonction _bindingHandler_).
+Lorsque l'utilisateur sélectionne une option, celle-ci est transmise au composant parent par double binding (voir la fonction ```bindingHandler```).
 Lorsque l'utilisateur clique sur **Search** un appel à l'API est fait avec offset à 0. Les options sont systématiquement passé à l'API. 
 
 Au retour de l'API le contexte est mis à jours : création d'un nouveau ResultSet composé des anciennes données et des nouvelles données.
@@ -48,3 +64,11 @@ Au retour de l'API le contexte est mis à jours : création d'un nouveau ResultS
 10. Modification du composant API pour supporter le filtrage
 11. Gestion du scroll infini sur le front et adaptation de l'API pour le passage de l'offset.
 12. Tests et bug fixes.
+
+## Pistes d'améliorations
+
+- Implémentations de tests unitaires
+- Séparations des deux grilles dans deux composants
+- Mise en cache des résultats de recherche (besoin à démontrer)
+- Remplacer le test sur "Année" codé en dure, grâce à l'utilisation d'une propriété type de données (date ou text)
+
